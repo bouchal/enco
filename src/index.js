@@ -1,5 +1,5 @@
 import ConfigLoader from './lib/ConfigLoader';
 
-export default (config = {}) => {
+module.exports = (config = {}) => {
     return new ConfigLoader(config);
-}
+};
