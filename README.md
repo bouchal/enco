@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A node.js package for most simple config data loading based on app enviroment from CSON or JSON file(s).
+A node.js package for most simple config data loading based on app environment from CSON or JSON file(s).
 
 This method for loading configs I use now for few years and I think it's time to create
 some united package.
@@ -12,7 +12,7 @@ So there it is.
 ## Goals
 
 To load config object from files or folder almost withnout configuration.
-Of course with enviroments inheritance.
+Of course with environments inheritance.
 
 ## Instalation
 
@@ -24,7 +24,7 @@ npm install environmentconfig
 
 ### Single file config
 
-At firt we need to create CSON config file
+At first we need to create CSON config file
 
 ```
 production:
@@ -173,3 +173,19 @@ In this case default environment will be `dev` because it's last one.
 
 Dependencies works like waterfall. If you select `stage`,
 it will inherit everything from `prod` config and rewrite or append its own values.
+
+
+## Config API
+
+There is a list of configuration options for config loading
+
+| Property | Description | Value | Default |
+|----------|-------------|-------|---------|
+| type | Type of config files  | `cson` or `json` | cson |
+| envName | Witch ENV variable define environments name. It works only if property `environment` is not set | string | `NODE_ENV` |
+| environment | For defining current environment name your own way | string | Last value of `environments` property |
+| environments | Array of all app environments with waterfall inheritance | string array | `[ 'production', 'test', 'development', 'localhost' ]` |
+| isFolderStructure | Define if configs are in multiple files | bool | `false` |
+| dir | Path to folder with configs | string | Starting point of app (`process.cwd()`) |
+| file | Define specific file what you want load, ignoring other options | string | `null` |
+| filePrefix | If your config file name is not starting with `config` (`config.cson` or `config.production.cson`). You cant change it here. | string | `config` |
