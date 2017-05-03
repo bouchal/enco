@@ -20,7 +20,6 @@ class ConfigLoader {
      * @param file
      * @param filePrefix
      * @param isFolderStructure
-     * @param debug
      * @private
      */
     _initConfig({
@@ -36,8 +35,7 @@ class ConfigLoader {
         dir = process.cwd(),
         file,
         filePrefix = 'config',
-        isFolderStructure = false,
-        debug = false
+        isFolderStructure = false
     }) {
         this.config = {
             type,
@@ -47,8 +45,7 @@ class ConfigLoader {
             dir,
             file,
             filePrefix,
-            isFolderStructure,
-            debug,
+            isFolderStructure
         }
     }
 
