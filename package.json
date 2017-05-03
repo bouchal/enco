@@ -1,6 +1,6 @@
 {
   "name": "environmentconfig",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Load config from JSON or CSON file/folder base on environment name.",
   "main": "./dist/index.js",
   "scripts": {
