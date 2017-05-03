@@ -111,27 +111,27 @@ result:
 
 At first we need to create few files
 
-```
+```javascript
 // config/config.production.json
 {
     "host": "10.0.0.1",
     "port": "80"
 }
 ```
-```
+```javascript
 // config/config.development.json
 {
     "port": "8080"
 }
 ```
-```
+```javascript
 // config/config.localhost.json
 {
     "host": "127.0.0.1"
 }
 ```
 ```javascript
-// config/config.development.json
+// index.js
 var configLoader = require('environmentconfig');
 var config = configLoader({
     type: 'json',
