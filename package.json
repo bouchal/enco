@@ -1,11 +1,11 @@
 {
   "name": "environmentconfig",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Load config from JSON or CSON file/folder base on environment name.",
   "main": "./dist/index.js",
   "scripts": {
     "build": "./node_modules/babel-cli/bin/babel.js ./src --out-dir ./dist",
-    "prebuild": "npm run build",
+    "prepublish": "npm run build",
     "test": "cd test && NODE_ENV=production mocha --compilers js:babel-core/register **/*.test.js"
   },
   "repository": {
