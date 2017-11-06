@@ -1,5 +1,6 @@
 import CsonLoader from './CsonLoader';
 import JsonLoader from './JsonLoader';
+import dotenv from 'dotenv';
 import _ from 'lodash';
 import fs from 'fs';
 
@@ -20,6 +21,7 @@ class ConfigLoader {
      * @param file
      * @param filePrefix
      * @param isFolderStructure
+     * @param envFilePath
      * @private
      */
     _initConfig({
@@ -35,7 +37,8 @@ class ConfigLoader {
         dir = process.cwd(),
         file,
         filePrefix = 'config',
-        isFolderStructure = false
+        isFolderStructure = false,
+        envFilePath
     }) {
         this.config = {
             type,
@@ -45,7 +48,8 @@ class ConfigLoader {
             dir,
             file,
             filePrefix,
-            isFolderStructure
+            isFolderStructure,
+            envFilePath
         }
     }
 
@@ -112,6 +116,14 @@ class ConfigLoader {
      */
     _getConfig() {
         let config = null;
+
+        let envConfig = {};
+
+        if (this.config.envFilePath) {
+            envConfig.path = this.config.envFilePath
+        }
+
+        dotenv.config(envConfig);
 
         if (this.config.isFolderStructure) {
             config = this._loadConfigFromDir(this.config.dir);

@@ -55,3 +55,24 @@ describe('Multiple file CSON config', () => {
         done();
     })
 });
+
+describe('.env file', () => {
+    it ('should be loaded to process.env without path', (done) => {
+        configLoader();
+
+        process.env.TEST_ENV_VARIABLE.should.be.equal('test');
+        delete process.env.TEST_ENV_VARIABLE;
+
+        done();
+    })
+
+    it ('should be loaded to process.env with path', (done) => {
+        configLoader({
+            envFilePath: __dirname + '/.env'
+        });
+
+        process.env.TEST_ENV_VARIABLE.should.be.equal('test');
+
+        done();
+    })
+})

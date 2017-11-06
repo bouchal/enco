@@ -189,3 +189,4 @@ There is a list of configuration options for config loading
 | dir | Path to folder with configs | string | Starting point of app (`process.cwd()`) |
 | file | Define specific file what you want load, ignoring other options | string | `null` |
 | filePrefix | If your config file name is not starting with `config` (`config.cson` or `config.production.cson`). You cant change it here. | string | `config` |
+| envFilePath | If you have .env file on different path with different name | string | `null` |
