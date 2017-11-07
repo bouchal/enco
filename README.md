@@ -28,8 +28,8 @@ At first we need to create CSON config file
 
 ```
 production:
-    host: '10.0.0.1'
-    port: 80
+    host: "#{process.env.HOST}"
+    port: #{process.env.POSR}
 
 development:
     port: 8080
@@ -38,7 +38,14 @@ localhost:
     host: '127.0.0.1'
 ```
 
-#### Load without config
+Then you can create .env file with ENV variables
+
+```
+PORT=80
+HOST="10.0.0.1"
+```
+
+#### Load without config definition
 
 In this case default configuration is the last one. So `localhost`. 
 
