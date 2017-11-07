@@ -1,10 +1,10 @@
-import json from 'jsonfile';
+import cson from 'cson';
 
 import AbstractFileLoader from './AbstractFileLoader';
 
 class JsonLoader extends AbstractFileLoader {
-    _loadConfig(file) {
-        return json.readFileSync(file)
+    _parseConfig(config) {
+        return cson.parseJSONString(config)
     }
 }
 

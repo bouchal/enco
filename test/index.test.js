@@ -75,4 +75,15 @@ describe('.env file', () => {
 
         done();
     })
+
+    it ('should loaded ENV variables to config', (done) => {
+        let config = configLoader({
+            dir: __dirname,
+            file: 'env.config.cson'
+        });
+
+        config.test.should.be.equal('test');
+
+        done();
+    })
 })

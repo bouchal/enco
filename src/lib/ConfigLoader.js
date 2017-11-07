@@ -117,13 +117,7 @@ class ConfigLoader {
     _getConfig() {
         let config = null;
 
-        let envConfig = {};
-
-        if (this.config.envFilePath) {
-            envConfig.path = this.config.envFilePath
-        }
-
-        dotenv.config(envConfig);
+        this._loadEnvFile();
 
         if (this.config.isFolderStructure) {
             config = this._loadConfigFromDir(this.config.dir);
@@ -134,6 +128,16 @@ class ConfigLoader {
         }
 
         return config;
+    }
+
+    _loadEnvFile() {
+        let envConfig = {};
+
+        if (this.config.envFilePath) {
+            envConfig.path = this.config.envFilePath
+        }
+
+        dotenv.config(envConfig);
     }
 
     _loadConfigFromDir(dirPath) {

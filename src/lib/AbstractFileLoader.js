@@ -1,3 +1,5 @@
+import fs from 'fs'
+
 class AbstractFileLoader {
     /**
      * @param file
@@ -12,7 +14,35 @@ class AbstractFileLoader {
     }
 
     _loadConfig(file) {
-        throw new TypeError("Must override method _loadConfig");
+        return this._parseConfig(this._injectVariables(fs.readFileSync(file, "utf-8")));
+    }
+
+    /**
+     *
+     * @param config
+     * @private
+     */
+    _injectVariables(config) {
+        return config.replace(/#\{(.+)\}/g, (match, code) => {
+            code = code.split('.');
+
+            let base = new Function("return " + code[0])();
+            code.shift();
+
+            for (let variable of code) {
+                base = base[variable]
+            }
+
+            if (!base) {
+                base = null;
+            }
+
+            return base;
+        })
+    }
+
+    _parseConfig(config) {
+        throw new TypeError("Must override method _parseConfig");
     }
 }
 
