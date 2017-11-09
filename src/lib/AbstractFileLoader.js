@@ -33,8 +33,12 @@ class AbstractFileLoader {
                 base = base[variable]
             }
 
+            if (typeof base == 'string') {
+                return '"' + base + '"';
+            }
+
             if (!base) {
-                base = "";
+                return null;
             }
 
             return base;

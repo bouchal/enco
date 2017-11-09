@@ -60,8 +60,8 @@ describe('.env file', () => {
     it ('should be loaded to process.env without path', (done) => {
         configLoader();
 
-        process.env.TEST_ENV_VARIABLE.should.be.equal('test');
-        delete process.env.TEST_ENV_VARIABLE;
+        process.env.STRING_TEST.should.be.equal('test');
+        delete process.env.STRING_TEST;
 
         done();
     })
@@ -71,7 +71,7 @@ describe('.env file', () => {
             envFilePath: __dirname + '/.env'
         });
 
-        process.env.TEST_ENV_VARIABLE.should.be.equal('test');
+        process.env.STRING_TEST.should.be.equal('test');
 
         done();
     })
@@ -82,8 +82,12 @@ describe('.env file', () => {
             file: 'env.config.cson'
         });
 
-        config.test.should.be.equal('test');
-        config.null_test.should.be.equal('')
+        config.string_test.should.be.equal(process.env.STRING_TEST);
+        config.number_test.should.be.equal(process.env.NUMBER_TEST);
+        config.bool_test_true.should.be.equal(process.env.BOOL_TEST_TRUE);
+        config.bool_test_false.should.be.equal(process.env.BOOL_TEST_FALSE);
+        config.empty_test.should.be.equal(process.env.EMPTY_TEST);
+        should.equal(config.non_exists, null);
 
         done();
     })
