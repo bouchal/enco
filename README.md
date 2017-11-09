@@ -28,7 +28,7 @@ At first we need to create CSON config file
 
 ```
 production:
-    host: "#{process.env.HOST}"
+    host: #{process.env.HOST}
     port: #{process.env.POSR}
 
 development:
