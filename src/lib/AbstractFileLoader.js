@@ -34,7 +34,7 @@ class AbstractFileLoader {
             }
 
             if (!base) {
-                base = null;
+                base = "";
             }
 
             return base;

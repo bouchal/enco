@@ -83,6 +83,7 @@ describe('.env file', () => {
         });
 
         config.test.should.be.equal('test');
+        config.null_test.should.be.equal('')
 
         done();
     })
