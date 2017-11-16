@@ -4,3 +4,6 @@ production:
 
 development:
     port: 8080
+
+localhost:
+    port: 3000

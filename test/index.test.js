@@ -40,6 +40,37 @@ describe('Single JSON file config', () => {
 });
 
 
+describe('ENV name config', () => {
+    it('should load development config based on default NODE_NAME env name', (done) => {
+        process.env.NODE_ENV = 'development';
+
+        let config = configLoader();
+
+        config.host.should.be.equal('127.0.0.1');
+        config.port.should.be.equal(8080);
+
+        delete process.env.NODE_ENV;
+
+        done();
+    });
+
+    it('should load development config based on custom environment name in env var name', (done) => {
+        process.env.ENVIRONMENT_NAME = 'development';
+
+        let config = configLoader({
+            envName: 'ENVIRONMENT_NAME'
+        });
+
+        config.host.should.be.equal('127.0.0.1');
+        config.port.should.be.equal(8080);
+
+        delete process.env.ENVIRONMENT_NAME;
+
+        done();
+    });
+});
+
+
 
 describe('Multiple file CSON config', () => {
     it ('should return load localhost config from folder structure', (done) => {
