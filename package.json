@@ -1,6 +1,6 @@
 {
   "name": "environmentconfig",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Load config from JSON or CSON file/folder base on environment name.",
   "main": "./dist/index.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "mocha": "~2.2.1",
     "should": "~5.2.0"
   },
-  "homepage": "https://github.com/Scorpio1337/environmentconfig#readme",
+  "homepage": "https://github.com/bouchal/environmentconfig#readme",
   "dependencies": {
     "cson": "^4.1.0",
     "dotenv": "^4.0.0",
