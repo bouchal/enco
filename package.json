@@ -1,6 +1,6 @@
 {
   "name": "environmentconfig",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Load config from JSON or CSON file/folder base on environment name.",
   "main": "./dist/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Scorpio1337/environmentconfig.git"
+    "url": "git+https://github.com/bouchal/environmentconfig.git"
   },
   "keywords": [
     "Config",
@@ -21,7 +21,7 @@
   "author": "Antonín Bouchal <me@justme.cz>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Scorpio1337/environmentconfig/issues"
+    "url": "https://github.com/bouchal/environmentconfig/issues"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
