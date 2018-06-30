@@ -29,13 +29,14 @@ At first we need to create CSON config file
 ```
 production:
     host: #{process.env.HOST}
-    port: #{process.env.POSR}
+    port: #{process.env.PORT}
 
 development:
     port: 8080
     
 localhost:
     host: '127.0.0.1'
+    port: #{process.env.PORT || 3000}
 ```
 
 Then you can create .env file with ENV variables

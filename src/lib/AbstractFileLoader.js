@@ -24,14 +24,7 @@ class AbstractFileLoader {
      */
     _injectVariables(config) {
         return config.replace(/#\{(.+)\}/g, (match, code) => {
-            code = code.split('.');
-
-            let base = new Function("return " + code[0])();
-            code.shift();
-
-            for (let variable of code) {
-                base = base[variable]
-            }
+            const base = new Function("return " + code)();
 
             if (typeof base == 'string') {
                 return '"' + base + '"';

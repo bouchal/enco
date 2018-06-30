@@ -107,7 +107,7 @@ describe('.env file', () => {
         done();
     })
 
-    it ('should loaded ENV variables to config', (done) => {
+    it ('should loaded ENV variables to CSON config', (done) => {
         let config = configLoader({
             dir: __dirname,
             file: 'env.config.cson'
@@ -119,6 +119,24 @@ describe('.env file', () => {
         config.bool_test_false.should.be.equal(process.env.BOOL_TEST_FALSE);
         config.empty_test.should.be.equal(process.env.EMPTY_TEST);
         should.equal(config.non_exists, null);
+        should.equal(config.with_default, 'DefaultValue');
+
+        done();
+    })
+
+    it ('should loaded ENV variables to JSON config', (done) => {
+        let config = configLoader({
+            dir: __dirname,
+            file: 'env.config.json'
+        });
+
+        config.string_test.should.be.equal(process.env.STRING_TEST);
+        config.number_test.should.be.equal(process.env.NUMBER_TEST);
+        config.bool_test_true.should.be.equal(process.env.BOOL_TEST_TRUE);
+        config.bool_test_false.should.be.equal(process.env.BOOL_TEST_FALSE);
+        config.empty_test.should.be.equal(process.env.EMPTY_TEST);
+        should.equal(config.non_exists, null);
+        should.equal(config.with_default, 'DefaultValue');
 
         done();
     })
