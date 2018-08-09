@@ -31,7 +31,9 @@ class AbstractFileLoader {
      */
     _injectVariables(config) {
         const injectedKeys = Object.keys(this._injected);
-        const injectedValues = Object.values(this._injected);
+        const injectedValues = injectedKeys.map((key) => {
+            return this._injected[key]
+        });
 
         return config.replace(/#\{(.+)\}/g, (match, code) => {
             const base = new Function(injectedKeys, "return " + code)(...injectedValues);
