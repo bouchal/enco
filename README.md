@@ -182,6 +182,47 @@ In this case default environment will be `dev` because it's last one.
 Dependencies works like waterfall. If you select `stage`,
 it will inherit everything from `prod` config and rewrite or append its own values.
 
+### Variables injecting
+
+Sometimes you need to pass some data to config and load then directly in it. For example, when you load environment
+variables some other way then through ENV vars (some json loaded to container in build etc.).
+
+For this king of situations you can use `inject` option in configLoader config.
+
+__For example:__
+
+```javascript
+var configLoader = require('environmentconfig');
+
+var injectedVars = {
+    server: {
+        port: 80
+    },
+    databases: {
+        mysql: {
+            host: 'some.mysql.con.string'
+        }
+    }
+};
+
+var config = configLoader({
+    inject: injectedVars
+});
+```
+
+After that you can load this variables in config via `#{...}` syntax like that:
+
+```
+production:
+    port: #{server.port}
+    mysql: #{databases.mysql.host}
+
+development:
+    port: 8080
+
+localhost:
+    port: 3000
+```
 
 ## Config API
 
@@ -198,3 +239,4 @@ There is a list of configuration options for config loading
 | file | Define specific file what you want load, ignoring other options | string | `null` |
 | filePrefix | If your config file name is not starting with `config` (`config.cson` or `config.production.cson`). You cant change it here. | string | `config` |
 | envFilePath | If you have .env file on different path with different name | string | `null` |
+| inject | You can inject variables for loading them via `#{...}` in config | object | `{} |

@@ -2,17 +2,24 @@ import fs from 'fs'
 
 class AbstractFileLoader {
     /**
-     * @param file
+     * @param {string} file
+     * @param {object} injected
      * @returns {*}
      */
-    constructor(file) {
+    constructor(file, injected = {}) {
         if (new.target === AbstractFileLoader) {
             throw new TypeError("Cannot construct Abstract instances directly");
         }
 
+        this._injected = injected;
+
         return this._loadConfig(file);
     }
 
+    /**
+     * @param {string} file
+     * @private
+     */
     _loadConfig(file) {
         return this._parseConfig(this._injectVariables(fs.readFileSync(file, "utf-8")));
     }
@@ -23,10 +30,15 @@ class AbstractFileLoader {
      * @private
      */
     _injectVariables(config) {
-        return config.replace(/#\{(.+)\}/g, (match, code) => {
-            const base = new Function("return " + code)();
+        const injectedKeys = Object.keys(this._injected);
+        const injectedValues = injectedKeys.map((key) => {
+            return this._injected[key]
+        });
 
-            if (typeof base == 'string') {
+        return config.replace(/#\{(.+)\}/g, (match, code) => {
+            const base = new Function(injectedKeys, "return " + code)(...injectedValues);
+
+            if (typeof base === 'string') {
                 return '"' + base + '"';
             }
 
