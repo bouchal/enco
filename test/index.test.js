@@ -140,4 +140,33 @@ describe('.env file', () => {
 
         done();
     })
-})
+});
+
+describe('Injected variables', () => {
+    it ('should append injected variables to config and read them in it', (done) => {
+        const injectConfig = {
+            host: '127.0.0.1',
+            server: {
+                port: 80
+            },
+            databases: {
+                mysql: {
+                    host: 'some'
+                }
+            }
+        };
+
+        let config = configLoader({
+            dir: __dirname,
+            environment: 'production',
+            file: 'injected.config.cson',
+            inject: injectConfig
+        });
+
+        config.host.should.be.equal(injectConfig.host);
+        config.port.should.be.equal(injectConfig.server.port);
+        config.mysql.should.be.equal(injectConfig.databases.mysql.host);
+
+        done();
+    });
+});

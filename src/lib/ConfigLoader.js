@@ -22,6 +22,7 @@ class ConfigLoader {
      * @param filePrefix
      * @param isFolderStructure
      * @param envFilePath
+     * @param inject
      * @private
      */
     _initConfig({
@@ -38,9 +39,10 @@ class ConfigLoader {
         file,
         filePrefix = 'config',
         isFolderStructure = false,
-        envFilePath
+        envFilePath,
+        inject = {}
     }) {
-        this.config = {
+        this._config = {
             type,
             envName,
             environment,
@@ -49,7 +51,8 @@ class ConfigLoader {
             file,
             filePrefix,
             isFolderStructure,
-            envFilePath
+            envFilePath,
+            inject
         }
     }
 
@@ -60,7 +63,7 @@ class ConfigLoader {
      * @private
      */
     get _defaultEnvironment() {
-        const { environments } = this.config;
+        const { environments } = this._config;
 
         return environments[environments.length - 1];
     }
@@ -72,11 +75,11 @@ class ConfigLoader {
      * @private
      */
     get _currentEnvironment() {
-        if (this.config.environment) {
-            return this.config.environment;
+        if (this._config.environment) {
+            return this._config.environment;
         }
 
-        const nodeEnvName = process.env[this.config.envName];
+        const nodeEnvName = process.env[this._config.envName];
 
         if (nodeEnvName) {
             return nodeEnvName;
@@ -86,15 +89,15 @@ class ConfigLoader {
     }
 
     get _fileName() {
-        if (this.config.file) {
-            return this.config.file;
+        if (this._config.file) {
+            return this._config.file;
         }
 
-        return this.config.filePrefix + '.' + this._fileExt;
+        return this._config.filePrefix + '.' + this._fileExt;
     }
 
     get _fileExt() {
-        switch (this.config.type) {
+        switch (this._config.type) {
             case 'cson':
                 return 'cson';
                 break;
@@ -119,10 +122,10 @@ class ConfigLoader {
 
         this._loadEnvFile();
 
-        if (this.config.isFolderStructure) {
-            config = this._loadConfigFromDir(this.config.dir);
+        if (this._config.isFolderStructure) {
+            config = this._loadConfigFromDir(this._config.dir);
         } else {
-            const file = this.config.dir + '/./' + this._fileName;
+            const file = this._config.dir + '/./' + this._fileName;
             config = this._loadConfigFromFile(file);
             config = this._getEnvironmentConfig(config);
         }
@@ -133,8 +136,8 @@ class ConfigLoader {
     _loadEnvFile() {
         let envConfig = {};
 
-        if (this.config.envFilePath) {
-            envConfig.path = this.config.envFilePath
+        if (this._config.envFilePath) {
+            envConfig.path = this._config.envFilePath
         }
 
         dotenv.config(envConfig);
@@ -143,8 +146,8 @@ class ConfigLoader {
     _loadConfigFromDir(dirPath) {
         let config = {};
 
-        for (let envName of this.config.environments) {
-            let file = dirPath + '/./' + this.config.filePrefix + '.' + envName + '.' + this._fileExt;
+        for (let envName of this._config.environments) {
+            let file = dirPath + '/./' + this._config.filePrefix + '.' + envName + '.' + this._fileExt;
 
             if (!fs.existsSync(file)) {
                 continue;
@@ -168,12 +171,12 @@ class ConfigLoader {
      * @private
      */
     _loadConfigFromFile(file) {
-        switch (this.config.type) {
+        switch (this._config.type) {
             case 'cson':
-                return new CsonLoader(file);
+                return new CsonLoader(file, this._config.inject);
                 break;
             case 'json':
-                return new JsonLoader(file);
+                return new JsonLoader(file, this._config.inject);
                 break;
             default:
                 throw new TypeError('Wrong config type.');
@@ -185,7 +188,7 @@ class ConfigLoader {
     _getEnvironmentConfig(rawConfig) {
         let envConfig = {};
 
-        for (let envName of this.config.environments) {
+        for (let envName of this._config.environments) {
             envConfig = _.merge(envConfig, rawConfig[envName]);
 
             if (envName == this._currentEnvironment) {
