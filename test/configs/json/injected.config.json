@@ -1,0 +1,15 @@
+{
+    "production": {
+        "host": #{host},
+        "port": #{server.port},
+        "mysql": #{databases.mysql.host}
+    },
+
+    "development": {
+        "port": 8080
+    },
+
+    "localhost": {
+        "port": 3000
+    }
+}
