@@ -1,8 +1,8 @@
-# environmentconfig
+# enco
 
 ## Introduction
 
-A node.js package for most simple config data loading based on app environment from CSON or JSON file(s).
+A node.js package for most simple config data loading based on app environment from YAML, CSON or JSON file(s).
 
 This method for loading configs I use now for few years and I think it's time to create
 some united package.
@@ -17,14 +17,14 @@ Of course with environments inheritance.
 ## Instalation
 
 ```
-npm install environmentconfig
+npm install enco
 ```
 
 ## Examples
 
 ### Single file config
 
-At first we need to create CSON config file
+At first we need to create YAML config file
 
 ```
 production:
@@ -51,7 +51,7 @@ HOST="10.0.0.1"
 In this case default configuration is the last one. So `localhost`. 
 
 ```javascript
-var configLoader = require('environmentconfig');
+var configLoader = require('enco');
 var config = configLoader();
 ```
 
@@ -70,7 +70,7 @@ Default ENV variable name is NODE_ENV
 
 ```javascript
 // index.js
-var configLoader = require('environmentconfig');
+var configLoader = require('enco');
 var config = configLoader();
 ```
 
@@ -94,7 +94,7 @@ You can change ENV variable name in config via parameter `envName`
 
 ```javascript
 // index.js
-var configLoader = require('environmentconfig');
+var configLoader = require('enco');
 var config = configLoader({
     envName: 'ENVIRONMENT'
 });
@@ -140,7 +140,7 @@ At first we need to create few files
 ```
 ```javascript
 // index.js
-var configLoader = require('environmentconfig');
+var configLoader = require('enco');
 var config = configLoader({
     type: 'json',
     dir: './config',
@@ -167,7 +167,7 @@ result:
 Default environments is production, test, development, localhost. But you can define your own:
 
 ```
-var configLoader = require('environmentconfig');
+var configLoader = require('enco');
 var config = configLoader({
     environments: [
             'prod',
@@ -192,7 +192,7 @@ For this king of situations you can use `inject` option in configLoader config.
 __For example:__
 
 ```javascript
-var configLoader = require('environmentconfig');
+var configLoader = require('enco');
 
 var injectedVars = {
     server: {
@@ -230,7 +230,7 @@ There is a list of configuration options for config loading
 
 | Property | Description | Value | Default |
 |----------|-------------|-------|---------|
-| type | Type of config files  | `cson` or `json` | cson |
+| type | Type of config files  | `cson` or `json` | yaml |
 | envName | Witch ENV variable define environments name. It works only if property `environment` is not set | string | `NODE_ENV` |
 | environment | For defining current environment name your own way | string | Last value of `environments` property |
 | environments | Array of all app environments with waterfall inheritance | string array | `[ 'production', 'test', 'development', 'localhost' ]` |
