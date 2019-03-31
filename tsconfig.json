@@ -9,8 +9,7 @@
       "es2015.promise",
       "es2015.proxy"
     ],
-    "outDir": "./dist",
-    "declaration": true
+    "outDir": "./dist"
   },
   "include": [
     "./src/**/*"
