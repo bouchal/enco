@@ -2,7 +2,8 @@
     "production": {
         "host": #{host},
         "port": #{server.port},
-        "mysql": #{databases.mysql.host}
+        "mysql": #{databases.mysql.host},
+        "escaped": #{escaped}
     },
 
     "development": {

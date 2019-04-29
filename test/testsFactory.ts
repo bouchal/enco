@@ -103,7 +103,8 @@ export default function (type: string): void {
                     mysql: {
                         host: 'some'
                     }
-                }
+                },
+                escaped: "E!%R)v'^Xyy\\GG4y>l7,-+3\"18W"
             };
 
             let config = configLoader({
@@ -117,6 +118,7 @@ export default function (type: string): void {
             config.host.should.be.equal(injectConfig.host);
             config.port.should.be.equal(injectConfig.server.port);
             config.mysql.should.be.equal(injectConfig.databases.mysql.host);
+            config.escaped.should.be.equal(injectConfig.escaped);
 
             done();
         });

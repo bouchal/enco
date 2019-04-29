@@ -2,6 +2,7 @@ production:
     host: #{host}
     port: #{server.port}
     mysql: #{databases.mysql.host}
+    escaped: #{escaped}
 
 development:
     port: 8080
