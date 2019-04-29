@@ -27,7 +27,7 @@ export default abstract class AbstractFileLoader {
             const base = new Function(...injectedKeys, "return " + code)(...injectedValues);
 
             if (typeof base === 'string') {
-                return '"' + base + '"';
+                return JSON.stringify(base);
             }
 
             if (!base) {
